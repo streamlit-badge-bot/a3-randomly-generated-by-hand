@@ -7,7 +7,7 @@ businessid= "--9e1ONYQuAa-CB_Rrw7Tw"
 def load(input_json):
     return pd.read_json(input_json, lines = True)
 
-def dateParser(df):
+def dateParser(df, businessid):
     df_parsed = pd.DataFrame(checkin.loc[df['business_id']==businessid].date.iloc[0].split(", "), columns=["date"])
     df_parsed["date"] = pd.to_datetime(df_parsed["date"])
 
@@ -21,7 +21,7 @@ def getCheckinByHour(df, weekday, businessid):
 
 
 checkin = load(input_json_checkin)
-checkin_parsed = dateParser(checkin)
+checkin_parsed = dateParser(checkin, businessid)
 
 getCheckinByHour(checkin_parsed, "Monday", businessid)
 
