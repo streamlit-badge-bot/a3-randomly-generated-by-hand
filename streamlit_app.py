@@ -29,10 +29,8 @@ st.markdown("Analysis done by: Seungmyung Lee(seungmyl) and Eileen Wang")
 # Loading data, use partially selected portions for review and user. 
 
 business_df = pd.read_csv("./yelp_dataset/business_filtered.csv")
-review_df = pd.concat([pd.read_csv("./yelp_dataset/review_pit_restaurant_user-1.csv"), pd.read_csv("./yelp_dataset/review_pit_restaurant_user-2.csv")])
+review_df = pd.concat([pd.read_csv("./yelp_dataset/review_filtered-1.csv"), pd.read_csv("./yelp_dataset/review_filtered-2.csv")])
 checkin = pd.concat([pd.read_csv("./yelp_dataset/checkin_filtered-1.csv"),pd.read_csv("./yelp_dataset/checkin_filtered-2.csv")])
-
-st.write(checkin.head())
 
 
 st.markdown("##Part 1: Restaurant Characteristics")
@@ -92,24 +90,34 @@ if cuisine != "Anything":
     city_cuisine_masked = city_masked[city_masked["categories"].str.contains(cuisine, na=True)]
 
 
+checkin["count"] = checkin["date"].apply(lambda x: len(x.split(", ")))
+
+checkin_masked_business_ids = checkin[lambda x: x["count"]>1000]["business_id"]
+
 # Select the restaurant
+
 
 restaurant = st.selectbox(
     'Select your restaurant',
-    city_cuisine_masked["name"].to_list())
-
-business_id = city_cuisine_masked[city_cuisine_masked["name"]==restaurant]["business_id"].values[0]
-
-checkin_parsed = business_weekday_plot.dateParser(checkin, business_id)
+    city_cuisine_masked[lambda x: x["business_id"].isin(checkin_masked_business_ids)]["name"].to_list())
 
 
-weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+if restaurant != None:
 
-weekday = st.selectbox("Select a weekday.", weekdays)
-checkin_df = business_weekday_plot.getCheckinByHour(checkin_parsed, weekday, business_id)
+    business_id = city_cuisine_masked[city_cuisine_masked["name"]==restaurant]["business_id"].values[0]
 
-st.markdown("Checkin counts by hour for day: "+weekday)
-st.bar_chart(checkin_df)
+    checkin_parsed = business_weekday_plot.dateParser(checkin, business_id)
+
+
+    weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
+    weekday = st.selectbox("Select a weekday.", weekdays)
+    checkin_df = business_weekday_plot.getCheckinByHour(checkin_parsed, weekday, business_id)
+
+    st.markdown("Checkin counts by hour for day: "+weekday)
+    st.bar_chart(checkin_df)
+else:
+    st.markdown("Sorry, there are no "+ cuisine +" restaurants in city "+ city + ". Please choose a different cuisine.")
 
 
 
@@ -144,6 +152,7 @@ categories = ['Mexican', 'Korean', 'Chinese', 'Pizza', 'American', 'Dessert', 'S
 review_cuisine = st.selectbox(
     'Select your favorite food for reviews analysis',
     ["Choose One"] + categories)
+
 
 
 if review_cuisine != 'Choose One':
@@ -181,11 +190,9 @@ st.markdown("Visualization 4: How has user appreciation for “cool”, “usefu
 # Visualization 4: How engaging are top reviewers for diners looking to research restaurants?
 # I could not get time data for users => changed to reviews
 
-# st.write(user_df.head())
-
-review_df["date"] = pd.to_datetime(review_df["date"])[lambda x: x.dt.year >= 2010].dt.date
 
 review_df = review_df.sort_values(by="date")
+
 
 review_votes_by_date = review_df.groupby(["date"]).sum()[["useful", "funny", "cool"]].reset_index()
 
@@ -201,6 +208,7 @@ def helper(row):
 
 review_votes_by_date.apply(lambda x: helper(x), axis=1)
 
+
 pivoted = pd.DataFrame(review_voted_dict)
 
 streamgraph = alt.Chart(pivoted).mark_area().encode(
@@ -209,7 +217,7 @@ streamgraph = alt.Chart(pivoted).mark_area().encode(
     ),
     alt.Y('votes:Q', stack='normalize', axis=None),
     alt.Color('type:N',
-        scale=alt.Scale(scheme='category20b')
+        scale=alt.Scale(scheme='tableau10')
     )
 ).interactive()
 
@@ -221,23 +229,12 @@ st.markdown("Visualization 5: Is there a relationship between adjectives users v
 # Is there a relationship between how “funny”,“cool”, “useful”, etc. people find reviewers’ comments and the star ratings reviewers give a restaurant?
 
 
-pit_cuisine_business_df = pit_business_df[pit_business_df["categories"].str.contains("Pizza", na=True)]
-
-selected_businesses = pit_cuisine_business_df["business_id"].unique()
+selected_businesses = business_df[business_df["categories"].str.contains("Pizza", na=True)]["business_id"].unique()
 
 review_business_masked = review_df[lambda x: x["business_id"].isin(selected_businesses)]
 
 review_business_masked["vote_total"] = review_business_masked["useful"] + review_business_masked["funny"] + review_business_masked["cool"]
 
-
-
-
-
-votetypes = ("useful", "funny", "cool")
-
-# options = list(range(len(votetypes)))
-
-types_chosen = st.multiselect("Choose vote types",  votetypes, votetypes)
 
 
 vote_range = st.slider("Range of Vote Counts", 0, 80, (0,80))
@@ -249,10 +246,6 @@ review_votes_stars = review_business_masked[lambda x: x["vote_total"]>10][["usef
 
 base_list = list()
 colors = {"useful": "green", "cool": "blue", "funny": "red"}
-
-for votetype in types_chosen:
-    base_list.append(alt.Chart(review_votes_stars).encode(
-        y='stars:Q', x=votetype+":Q", color=colors["useful"]))
 
 base = alt.Chart(review_votes_stars).encode(
     y='stars:Q',
