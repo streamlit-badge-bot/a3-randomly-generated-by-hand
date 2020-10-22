@@ -26,7 +26,7 @@ st.markdown("The following data visualizations help a Yelp product team explore 
     a diner's restaurant research journey: Restaurant characteristics (such as location, peak hours), and reviews \
     from Yelp community.")
 
-st.markdown("Analysis done by: Seungmyung Lee(seungmyl) and Eileen Wang")
+st.markdown("Analysis done by: Seungmyung Lee (seungmyl) and Eileen Wang (eileenwa)")
 
 # @st.cache  
 
