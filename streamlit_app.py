@@ -3,14 +3,16 @@ import pandas as pd
 import numpy as np
 import altair as alt
 import pydeck as pdk
-import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors
 
 from nltk.tokenize import TweetTokenizer
 from nltk.corpus import stopwords
 import string
 from wordcloud import WordCloud
 import json
+
+
+import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 
 import business_weekday_plot
 
