@@ -4,6 +4,8 @@ import numpy as np
 import altair as alt
 import pydeck as pdk
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+
 from nltk.tokenize import TweetTokenizer
 from nltk.corpus import stopwords
 import string
@@ -33,7 +35,8 @@ review_df = pd.concat([pd.read_csv("./yelp_dataset/review_filtered-1.csv"), pd.r
 checkin = pd.concat([pd.read_csv("./yelp_dataset/checkin_filtered-1.csv"),pd.read_csv("./yelp_dataset/checkin_filtered-2.csv")])
 
 
-st.markdown("##Part 1: Restaurant Characteristics")
+st.header("Part 1: Restaurant Characteristics")
+st.markdown("----------------------------------------------------------------------")
 
 
 ## Visualization 1: What type of cuisines are we likely to find in this city?
@@ -61,12 +64,13 @@ city_masked["categories"].apply(lambda x: findUniqueCategory(x))
 unique_categories = pd.Series(pd.Series(unique_categories)).sort_values(ascending=False).head(10)
 
 fig1, ax1 = plt.subplots()
-ax1.pie(unique_categories, labels=unique_categories.index, autopct='%1.1f%%', startangle=90)
+print(mcolors.TABLEAU_COLORS)
+ax1.pie(unique_categories, labels=unique_categories.index, autopct='%1.1f%%', startangle=90, colors=mcolors.TABLEAU_COLORS)
 ax1.axis('equal')  
 
 st.pyplot()
 
-
+st.markdown("----------------------------------------------------------------------")
 
 # Visualization 2
 
@@ -119,9 +123,13 @@ if restaurant != None:
 else:
     st.markdown("Sorry, there are no "+ cuisine +" restaurants in city "+ city + ". Please choose a different cuisine.")
 
+st.markdown("----------------------------------------------------------------------")
 
 
-st.markdown("##Part 2: Looking at Reviews from Yelp Community")
+st.header("Part 2: Looking at Reviews from Yelp Community")
+
+st.markdown("----------------------------------------------------------------------")
+
 
 st.markdown("Visualization 3: What word(s) are most frequently used words to describe different cuisine types?")
 
@@ -184,6 +192,7 @@ if review_cuisine != 'Choose One':
 
         st.image(wc.to_array())
 
+st.markdown("----------------------------------------------------------------------")
 
 st.markdown("Visualization 4: How has user appreciation for “cool”, “useful”, and “funny” reviews changed over the years?")
 
@@ -224,6 +233,7 @@ streamgraph = alt.Chart(pivoted).mark_area().encode(
 st.altair_chart(streamgraph, use_container_width=True)
 
 
+st.markdown("----------------------------------------------------------------------")
 
 st.markdown("Visualization 5: Is there a relationship between adjectives users vote on and the star rating given to a restaurant?")
 # Is there a relationship between how “funny”,“cool”, “useful”, etc. people find reviewers’ comments and the star ratings reviewers give a restaurant?
