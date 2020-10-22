@@ -38,6 +38,7 @@ checkin = pd.concat([pd.read_csv("./yelp_dataset/checkin_filtered-1.csv"),pd.rea
 
 
 st.header("Part 1: Restaurant Characteristics")
+st.markdown("The information that falls in this category describes the operational side of restaurants and the kind of food they serve. When users start their research journey, they could be presented with a large quantity of options in a city. Considering different restaurant characteristics is a necessary step users take to narrow down on options and not feel overwhelmed. Below two questions explores a few restaurant characteristics")
 st.markdown("----------------------------------------------------------------------")
 
 
