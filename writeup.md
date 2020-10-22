@@ -1,4 +1,4 @@
-# Exploring new ways to present information help Yelp users research restaurants
+# Help Yelp product team find new opportunities to present information for users researching restaurants 
 Find our Streamlit app here: https://share.streamlit.io/cmu-ids-2020/a3-randomly-generated-by-hand/
 ![streamlitscreenshot.PNG](streamlitscreenshot.PNG) 
 
