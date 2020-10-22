@@ -1,18 +1,18 @@
-# Exploring new information to present to Yelp users
+# Exploring new ways to present information help Yelp users research restaurants
 Find our Streamlit app here: https://share.streamlit.io/cmu-ids-2020/a3-randomly-generated-by-hand/
 ![streamlitscreenshot.PNG](streamlitscreenshot.PNG) 
 
 TODO: Short abstract describing the main goals and how you achieved them.
 
 ## Project Goals
-To pose compelling questions and create effective visualizations, we thought it would be helpful to identify a target audience first. Our target audience is the product team at Yelp, and they would be interested in exploring questions like: “What are some opportunities to present useful information for users researching restaurants on Yelp?” There are many types of information a user comes across  in navigating their restaurant research. For this project, we decided to explore two kinds of information that are essential in users’ research journey: Restaurant characteristics and Yelp community reviews.
+To pose compelling questions and create effective visualizations, we thought it would be helpful to identify a target audience first. Our target audience is the product team at Yelp, and they would be interested in exploring questions like: **“What are some opportunities to present useful information for users researching restaurants on Yelp?”** There are many types of information a user comes across  in navigating their restaurant research. For this project, we decided to explore two kinds of information that are essential in users’ research journey: Restaurant characteristics and Yelp community reviews.
 
-Restaurant characteristics:
+**Restaurant characteristics:**
 The information that falls in this category describes the operational side of restaurants  and the kind of food they serve. When users start their research journey, they could be presented with a large quantity of options in a city. Considering different restaurant characteristics is a necessary step users take to narrow down on options and not feel overwhelmed. Below questions explores a few restaurant characteristics:
 1. What type of cuisines are we likely to find in this city?
 2. What are the peak hours of this restaurant in a given day?
 
-Yelp community reviews:
+**Yelp community reviews:**
 Input from the Yelp community in the form of text reviews, star ratings, and upvotes also play a significant role in helping users navigate their restaurant search.  Below questions present opportunities for exploratory analyses, looking at their prominence over time and relationship to each other:
 
 3. What words are most frequently used to describe different cuisine types?
