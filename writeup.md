@@ -1,6 +1,6 @@
 # Exploring new information to present to Yelp users
 
-![streamlitscreenshot](streamlitscreenshot.png)
+![streamlitscreenshot.PNG](streamlitscreenshot.PNG) 
 
 TODO: Short abstract describing the main goals and how you achieved them.
 
