@@ -22,9 +22,7 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 
 st.title("What are some opportunities to present useful information for users researching restaurants on Yelp?")
 
-st.markdown("The following data visualizations help a Yelp product team explore different factors that influence \
-    a diner's restaurant research journey: Restaurant characteristics (such as location, peak hours), and reviews \
-    from Yelp community.")
+st.markdown("We set out to help a (theoretical) product team at Yelp find opportunities to design new features that can support users in their restaurant research journey, through leveraging existing restaurant and user input data. The dataset used in the project is provided by Yelp, and includes information on restaurants and user behavior on the platform. We focused on two important kinds of information as the basis of our exploration: restaurant characteristics and reviews on the platform. This project poses 5 questions within these two kinds of information to uncover new ways to present existing information in an insightful way.")
 
 st.markdown("Analysis done by: Seungmyung Lee (seungmyl) and Eileen Wang (eileenwa)")
 
@@ -38,7 +36,7 @@ checkin = pd.concat([pd.read_csv("./yelp_dataset/checkin_filtered-1.csv"),pd.rea
 
 
 st.header("Part 1: Restaurant Characteristics")
-st.markdown("The information that falls in this category describes the operational side of restaurants and the kind of food they serve. When users start their research journey, they could be presented with a large quantity of options in a city. Considering different restaurant characteristics is a necessary step users take to narrow down on options and not feel overwhelmed. Below two questions explores a few restaurant characteristics")
+st.markdown("The information that falls in this category describes the operational side of restaurants and the kind of food they serve. When users start their research journey, they could be presented with a large quantity of options in a city. Considering different restaurant characteristics is a necessary step users take to narrow down on options and not feel overwhelmed. Below two questions explores a few restaurant characteristics.")
 st.markdown("----------------------------------------------------------------------")
 
 
@@ -47,7 +45,7 @@ st.markdown("Visualization 1: What type of cuisines are we likely to find in thi
 
 cities = list(business_df.groupby(["city"]).count().sort_values(by="categories", ascending=False).head(10).index)
 
-city = st.selectbox("Choose your favorite city", cities)
+city = st.selectbox("Choose a city", cities)
 
 city_masked = business_df[lambda x: x["city"]==city][lambda x: x["categories"].str.contains("Restaurant", na=False)]
 
@@ -77,17 +75,17 @@ st.markdown("-------------------------------------------------------------------
 
 # Visualization 2
 
-st.markdown("Visualization 2: Peak hours at a restaurant on selected weekday.")
+st.markdown("Visualization 2: What are the peak hours of this restaurant in a given day?")
 cities = list(business_df.groupby(["city"]).count().sort_values(by="categories", ascending=False).head(10).index)
 
-city = st.selectbox("Choose your favorite city to explore.", cities)
+city = st.selectbox("Start by choosing a city to explore.", cities)
 
 city_masked = business_df[lambda x: x["city"]==city][lambda x: x["categories"].str.contains("Restaurant", na=False)]
 
 # Select type of cuisine 
 
 cuisine = st.selectbox(
-    'Select your favorite food',
+    'Then select a cuisine type',
     ('Anything', 'Mexican', 'Korean', 'Chinese', 'Pizza', 'American', 'Dessert', 'Salad', 'Burgers', 'Indian'))
 
 attribute_list = ("delivery", "take-out", "parking", "vegetarian", "vegan", "WiFi")
@@ -105,7 +103,7 @@ checkin_masked_business_ids = checkin[lambda x: x["count"]>1000]["business_id"]
 
 
 restaurant = st.selectbox(
-    'Select your restaurant',
+    'Select a restaurant within the cuisine type',
     city_cuisine_masked[lambda x: x["business_id"].isin(checkin_masked_business_ids)]["name"].to_list())
 
 
@@ -118,10 +116,10 @@ if restaurant != None:
 
     weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
-    weekday = st.selectbox("Select a weekday.", weekdays)
+    weekday = st.selectbox("Finally, select a weekday.", weekdays)
     checkin_df = business_weekday_plot.getCheckinByHour(checkin_parsed, weekday, business_id)
 
-    st.markdown("Checkin counts by hour for day: "+weekday)
+    st.markdown("Count of customer check-ins by hour for day: "+weekday)
     st.bar_chart(checkin_df)
 else:
     st.markdown("Sorry, there are no "+ cuisine +" restaurants in city "+ city + ". Please choose a different cuisine.")
@@ -129,7 +127,8 @@ else:
 st.markdown("----------------------------------------------------------------------")
 
 
-st.header("Part 2: Looking at Reviews from Yelp Community")
+st.header("Part 2: Looking at reviews and other inputs from the Yelp Community")
+st.markdown("Input from the Yelp community in the form of text reviews, star ratings, and upvotes also play a significant role in helping users navigate their restaurant search. Below questions present opportunities for exploratory analyses, looking at their prominence over time and relationship to each other.")
 
 st.markdown("----------------------------------------------------------------------")
 
