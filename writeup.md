@@ -71,6 +71,7 @@ Seungmyung led the effort to develop the application, and guided Eileen to effec
 Seungmyung spent also around 30 hours on her part of the application development. She edited Eileen’s code, merged it with her own, and brought the visualizations and interactions to life on Streamlit. The part that took the most time for Seungmyung was loading the data into her local computer’s memory, as the data was 6GB each. For deployment purposes, she filtered down the data, making it specifically fitted for the visualization.
 
 For each of the visualization, the following inputs and outputs were planned and executed: 
+
 **Visualization 1:** 
 [User Input]: City
 [Return]: Pie chart; Percentage of top 10 restaurant cuisine count
