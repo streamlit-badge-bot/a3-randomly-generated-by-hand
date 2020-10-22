@@ -1,6 +1,6 @@
-# Project name
+# Exploring new information to present to Yelp users
 
-![A screenshot of your application. Could be a GIF.](streamlitscreenshot.png)
+![streamlitscreenshot](streamlitscreenshot.png)
 
 TODO: Short abstract describing the main goals and how you achieved them.
 
