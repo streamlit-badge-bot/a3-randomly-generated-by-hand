@@ -19,6 +19,9 @@ Input from the Yelp community in the form of text reviews, star ratings, and upv
 4. How has user appreciation for “cool”, “useful”, and “funny” reviews changed over the years? 
 5. Is there a relationship between adjectives reviewers use ( funny, cool, useful, etc.) and the star ratings they give to a restaurant? 
 
+## Data set
+The data set we are using is from https://www.yelp.com/dataset. However, for this project we decided to focus on just a subset of the data. With the data that we did use, we had to clean and reformat it into a workable form for the models we wanted to build. Please find our restructured version of the original data set in the folder yelp_dataset in this repository. 
+
 ## Design
 The visual encodings and  interaction types were chosen based on their ability to 1) accurately depict the data at hand,  and 2) provide knobs for the product team to play with and explore different narratives. Read on to find out more details about our thought process behind designing each visualization to answer the questions we posed! 
 
