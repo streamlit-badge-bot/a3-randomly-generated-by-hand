@@ -14,6 +14,7 @@ The information that falls in this category describes the operational side of re
 
 Yelp community reviews:
 Input from the Yelp community in the form of text reviews, star ratings, and upvotes also play a significant role in helping users navigate their restaurant search.  Below questions present opportunities for exploratory analyses, looking at their prominence over time and relationship to each other:
+
 3. What words are most frequently used to describe different cuisine types?
 4. How has user appreciation for “cool”, “useful”, and “funny” reviews changed over the years? 
 5. Is there a relationship between adjectives reviewers use ( funny, cool, useful, etc.) and the star ratings they give to a restaurant? 
