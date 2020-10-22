@@ -78,7 +78,7 @@ st.markdown("-------------------------------------------------------------------
 st.markdown("Visualization 2: What are the peak hours of this restaurant in a given day?")
 cities = list(business_df.groupby(["city"]).count().sort_values(by="categories", ascending=False).head(10).index)
 
-city = st.selectbox("Start by choosing a city to explore.", cities)
+city = st.selectbox("Start by choosing a city to explore", cities)
 
 city_masked = business_df[lambda x: x["city"]==city][lambda x: x["categories"].str.contains("Restaurant", na=False)]
 
@@ -103,7 +103,7 @@ checkin_masked_business_ids = checkin[lambda x: x["count"]>1000]["business_id"]
 
 
 restaurant = st.selectbox(
-    'Select a restaurant within the cuisine type',
+    'Next, select a restaurant within the cuisine type',
     city_cuisine_masked[lambda x: x["business_id"].isin(checkin_masked_business_ids)]["name"].to_list())
 
 
@@ -116,10 +116,10 @@ if restaurant != None:
 
     weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
-    weekday = st.selectbox("Finally, select a weekday.", weekdays)
+    weekday = st.selectbox("Finally, select a weekday you are interested in viewing", weekdays)
     checkin_df = business_weekday_plot.getCheckinByHour(checkin_parsed, weekday, business_id)
 
-    st.markdown("Count of customer check-ins by hour for day: "+weekday)
+    st.markdown("Count of customer check-ins by hour for weekday: "+weekday)
     st.bar_chart(checkin_df)
 else:
     st.markdown("Sorry, there are no "+ cuisine +" restaurants in city "+ city + ". Please choose a different cuisine.")
@@ -160,7 +160,7 @@ def tokenizer_wrapper(row):
 categories = ['Mexican', 'Korean', 'Chinese', 'Pizza', 'American', 'Dessert', 'Salad', 'Burgers', 'Indian']
 
 review_cuisine = st.selectbox(
-    'Select your favorite food for reviews analysis',
+    'First, select your favorite food for reviews analysis',
     ["Choose One"] + categories)
 
 
@@ -263,9 +263,12 @@ base = alt.Chart(review_votes_stars).encode(
     y='stars:Q',
 )
 
+st.markdown("Relationship between count of useful upvotes and star ratings") 
 base.mark_point(color=colors["useful"]).encode(x="useful:Q"),
 
+st.markdown("Relationship between count of cool upvotes and star ratings") 
 base.mark_point(color=colors["cool"]).encode(x="cool:Q"),
 
+st.markdown("Relationship between count of funny upvotes and star ratings") 
 base.mark_point(color=colors["funny"]).encode(x="funny:Q"),
 
