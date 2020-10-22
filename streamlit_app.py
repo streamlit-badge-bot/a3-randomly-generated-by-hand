@@ -24,18 +24,15 @@ st.markdown("The following data visualizations help a Yelp product team explore 
 
 st.markdown("Analysis done by: Seungmyung Lee(seungmyl) and Eileen Wang")
 
-@st.cache  
-
-# add caching so we load the data only once
-def load_data(json_file):
-    return pd.read_json(json_file, lines=True)
-
+# @st.cache  
 
 # Loading data, use partially selected portions for review and user. 
 
-business_df = load_data(json_file = "../yelp_dataset/yelp_academic_dataset_business.json")
-review_df = pd.read_csv("../yelp_dataset/review_pit_restaurant.csv").drop("Unnamed: 0", axis=1)
-checkin = load_data(json_file = "../yelp_dataset/yelp_academic_dataset_checkin.json")
+business_df = pd.read_csv("./yelp_dataset/business_filtered.csv")
+review_df = pd.concat([pd.read_csv("./yelp_dataset/review_pit_restaurant_user-1.csv"), pd.read_csv("./yelp_dataset/review_pit_restaurant_user-2.csv")])
+checkin = pd.concat([pd.read_csv("./yelp_dataset/checkin_filtered-1.csv"),pd.read_csv("./yelp_dataset/checkin_filtered-2.csv")])
+
+st.write(checkin.head())
 
 
 st.markdown("##Part 1: Restaurant Characteristics")
