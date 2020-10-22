@@ -105,9 +105,10 @@ business_id = city_cuisine_masked[city_cuisine_masked["name"]==restaurant]["busi
 
 checkin_parsed = business_weekday_plot.dateParser(checkin, business_id)
 
-# [TODO] Add weekday selection
 
-weekday = "Monday"
+weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
+weekday = st.selectbox("Select a weekday.", weekdays)
 checkin_df = business_weekday_plot.getCheckinByHour(checkin_parsed, weekday, business_id)
 
 st.markdown("Checkin counts by hour for day: "+weekday)
@@ -232,11 +233,8 @@ review_business_masked = review_df[lambda x: x["business_id"].isin(selected_busi
 review_business_masked["vote_total"] = review_business_masked["useful"] + review_business_masked["funny"] + review_business_masked["cool"]
 
 
-star_range=st.slider("Range of stars", 0, 5, (0,5))
 
-star_range = list(range(star_range[0], star_range[1]+1))
 
-review_votes_stars = review_business_masked[lambda x: x["vote_total"]>10][["useful", "funny", "cool", "stars"]][lambda x: x["stars"].isin(star_range)]
 
 votetypes = ("useful", "funny", "cool")
 
@@ -244,7 +242,13 @@ votetypes = ("useful", "funny", "cool")
 
 types_chosen = st.multiselect("Choose vote types",  votetypes, votetypes)
 
-#[TODO] Slider on x axis
+
+vote_range = st.slider("Range of Vote Counts", 0, 80, (0,80))
+
+vote_range = list(range(vote_range[0], vote_range[1]+1))
+
+review_votes_stars = review_business_masked[lambda x: x["vote_total"]>10][["useful", "funny", "cool", "stars"]][lambda x: x["useful"].isin(vote_range)][lambda x: x["funny"].isin(vote_range)][lambda x: x["cool"].isin(vote_range)]
+
 
 base_list = list()
 colors = {"useful": "green", "cool": "blue", "funny": "red"}
@@ -262,20 +266,4 @@ base.mark_point(color=colors["useful"]).encode(x="useful:Q"),
 base.mark_point(color=colors["cool"]).encode(x="cool:Q"),
 
 base.mark_point(color=colors["funny"]).encode(x="funny:Q"),
-
-
-# base_list[0].mark_point() + base_list[1].mark_point()
-# st.write(review_votes_stars)
-
-
-#fix later
-# base = alt.Chart(review_votes_stars).mark_point(filled=True).encode(y='stars')
-
-# alt.layer(
-#     base.mark_point(color=colors["useful"]).encode(x="useful:Q"),
-#     base.mark_point(color=colors["cool"]).encode(x="cool:Q"),
-#     base.mark_point(color=colors["funny"]).encode(x="funny:Q")
-# )
-
-# base
 
