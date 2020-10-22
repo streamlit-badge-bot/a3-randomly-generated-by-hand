@@ -1,5 +1,9 @@
 streamlit
 pandas
+numpy
 altair
 nltk
 wordcloud
+pydeck
+matplotlib
+json
