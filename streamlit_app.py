@@ -4,6 +4,8 @@ import numpy as np
 import altair as alt
 import pydeck as pdk
 
+import nltk
+
 from nltk.tokenize import TweetTokenizer
 from nltk.corpus import stopwords
 import string
