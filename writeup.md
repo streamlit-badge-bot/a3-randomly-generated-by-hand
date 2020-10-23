@@ -79,20 +79,28 @@ For each of the visualization, the following inputs and outputs were planned and
 [User Input]: City
 [Return]: Pie chart; Percentage of top 10 restaurant cuisine count
 
-After receiving the user input city, the team used basic queries to filter down the dataset leveraging pandas, to aggregate and count the number of each cuisine type, considering the category feature. To better depict the concept of the visualization, they only returned the top ten proportions of restaurant cuisines per city. In this process, we also eliminated a few redundant categories such as Food and Restaurants. 
+After receiving the user-input city, the team used basic queries to filter down the dataset leveraging pandas, to aggregate and count the number of each cuisine type, considering the category feature. To better depict the concept of the visualization, they only returned the top ten proportions of restaurant cuisines per city. In this process, we also eliminated a few redundant categories such as Food and Restaurants. 
 
 **Visualization 2:**
 [User Input]: City & Cuisine => Auto-created selection of restaurants; Weekday
 [Return] Bar graph; X-axis: each hour in certain weekday, Y-axis: Check-in counts for the restaurant
 
+When the user chooses city and cusine type, the model filters down the business dataset accordingly and return the list of restaurants for the user to choose. If the user chooses a restaurant, it locates the corresponding the checkin data and transform it to plot the count of check-ins over each day of the week. 
+
 **Visualization 3:**
 [User Input]: Cuisine
 [Return] Word Cloud; Keywords from reviews of certain cuisine restaurants
+
+Firstly, the user chooses the type of cuisine. Then, the model extracts the columns of reviews data with the businesses that serves such kind of food. For simplicity, the team narrowed down the data with businessed of city of Pittsburgh to reduce its size. The review text is then tokenized with stopwords, and counted by its tokens. Then, using the WordCloud package, the counted tokens were visualized.
 
 **Visualization 4:**
 [User Input]: None
 [Return]: Streamgraph; X-axis: date, Y-axis: Normalized count of three types of votes
 
+The reviews were grouped by its vote type (useful, funny, cool) and counted. Then, the model used altair to create a streamgraph.
+
 **Visualization 5:**
 [User Input]: Range of Vote Counts
 [Return]: Plots; X-axis: Vote count for each type of vote, Y-axis: Star ratings
+
+Review data was aggregated and counted according to its vote type. The range slider receives the user's input to filter down the count of each vote types. The model creates three separate bar charts to show the different relations of the vote type and its star ratings.
