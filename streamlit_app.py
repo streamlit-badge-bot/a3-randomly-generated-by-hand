@@ -16,6 +16,8 @@ import matplotlib.colors as mcolors
 
 import business_weekday_plot
 
+nltk.download('stopwords')
+
 # [TODO] put a divider in between each viz
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
