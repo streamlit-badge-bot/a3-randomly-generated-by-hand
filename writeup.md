@@ -1,6 +1,6 @@
 # Help Yelp product team find new opportunities to improve how users research restaurants
 Find our Streamlit app here: https://share.streamlit.io/cmu-ids-2020/a3-randomly-generated-by-hand/
-![streamlitscreenshot.PNG](streamlitscreenshot.PNG) 
+![streamlit_screenshot.PNG](streamlit_screenshot.PNG) 
 
 We set out to help a (theoretical) product team at Yelp find opportunities to design new features that can support users in their restaurant research journey, through leveraging existing restaurant and user input data. The dataset used in the project is provided by Yelp, and includes information on restaurants and user behavior on the platform. We focused on two important kinds of information as the basis of our exploration: restaurant characteristics and reviews on the platform. This project poses 5 questions within these two kinds of information to uncover new ways to present existing information in an insightful way. We used Python and several different libraries to create a series of visualizations to understand the shape and structure of the data itself. We also included interactive knobs for each visualization to explore different areas of the data presented. Through building and analyzing the visualizations we created, we think there is an opportunity to pursue new features in several areas such as showcasing restaurants that are not busy, and restaurants with many “cool” upvotes.    
 
